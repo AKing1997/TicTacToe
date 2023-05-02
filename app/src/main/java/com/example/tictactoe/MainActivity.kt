@@ -34,15 +34,17 @@ class MainActivity : AppCompatActivity() {
 
         val redrige = Intent(this, FragmentActivity::class.java);
         connect.setOnClickListener {
-            if(ip.text.isNotEmpty() && port.text.isNotEmpty()){
+            val esIpValid = Regex("^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\$");
+            val esPortValid = Regex("^\\d{3,5}\$");
+            if((esIpValid.matches(ip.text.toString()) || ip.text.toString() == "localhost")&& esPortValid.matches(port.text.toString())){
                 ipErMsg.visibility = View.GONE
                 portErMsg.visibility = View.GONE
                 gamePlayOpt.visibility = View.VISIBLE;
                 redrige.putExtra("IP",ip.text.toString())
                 redrige.putExtra("PORT",port.text.toString())
             }else{
-                ipErMsg.visibility = if(ip.text.isNotEmpty()) View.GONE else View.VISIBLE;
-                portErMsg.visibility = if(port.text.isNotEmpty()) View.GONE else View.VISIBLE;
+                ipErMsg.visibility = if(esIpValid.matches(ip.text.toString())) View.GONE else View.VISIBLE;
+                portErMsg.visibility = if(esPortValid.matches(port.text.toString())) View.GONE else View.VISIBLE;
                 gamePlayOpt.visibility = View.GONE;
             }
         }
