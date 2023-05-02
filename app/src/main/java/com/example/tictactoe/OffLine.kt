@@ -1,14 +1,12 @@
 package com.example.tictactoe
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.RadioButton
+import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.MaterialToolbar
 
 class OffLine : Fragment() {
@@ -20,20 +18,20 @@ class OffLine : Fragment() {
     private lateinit var b6: ImageButton
     private lateinit var b7: ImageButton
     private lateinit var b8: ImageButton
-    private lateinit var b9 : ImageButton;
-    private lateinit var x : RadioButton;
-    private lateinit var o : RadioButton;
-    private lateinit var selected: String;
-    private var selectedBool: Boolean = false;
+    private lateinit var b9: ImageButton;
+    private lateinit var x: RadioButton;
+    private lateinit var o: RadioButton;
+    private var selected: Boolean = false;
+    private var playerO: Boolean = false;
     private lateinit var materialToolbarOff: MaterialToolbar;
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_off_line, container, false);
         materialToolbarOff = view.findViewById(R.id.materialToolbarOff)
-        materialToolbarOff.setTitle("OffLine")
+        materialToolbarOff.title = "OffLine"
         b3 = view.findViewById(R.id.b3)
         b4 = view.findViewById(R.id.b4)
         b2 = view.findViewById(R.id.b2)
@@ -45,6 +43,65 @@ class OffLine : Fragment() {
         b9 = view.findViewById(R.id.b9)
         x = view.findViewById(R.id.x)
         o = view.findViewById(R.id.o)
+
+        b1.setOnClickListener {
+            cambiarImagen(b1)
+        }
+        b2.setOnClickListener {
+            cambiarImagen(b2)
+        }
+        b3.setOnClickListener {
+            cambiarImagen(b3)
+        }
+        b4.setOnClickListener {
+            cambiarImagen(b4)
+        }
+        b5.setOnClickListener {
+            cambiarImagen(b5)
+        }
+        b6.setOnClickListener {
+            cambiarImagen(b6)
+        }
+        b7.setOnClickListener {
+            cambiarImagen(b7)
+        }
+        b8.setOnClickListener {
+            cambiarImagen(b8)
+        }
+        b9.setOnClickListener {
+            cambiarImagen(b9)
+        }
+        if(!playerO){
+            x.setOnClickListener {
+                disableRBtn()
+                selected = false;
+                playerO = false;
+            }
+            o.setOnClickListener {
+                disableRBtn()
+                selected = true;
+                playerO = true;
+            }
+        }
         return view;
     }
+    fun disableRBtn(){
+        x.isClickable = false
+        o.isClickable = false
+    }
+    fun cambiarImagen(img: ImageButton) {
+        if (playerO) {
+            val nuevaImagen = R.drawable.o_24
+            img.setImageResource(nuevaImagen)
+            img.isClickable = false
+            playerO = false
+        } else {
+            val nuevaImagen = R.drawable.x_24
+            img.setImageResource(nuevaImagen)
+            img.isClickable = false
+            playerO = true
+        }
+    }
 }
+
+

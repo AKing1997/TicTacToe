@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.RadioButton
 import com.google.android.material.appbar.MaterialToolbar
@@ -28,11 +27,11 @@ class Online : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        var view: View = inflater.inflate(R.layout.fragment_online, container, false);
+        val view: View = inflater.inflate(R.layout.fragment_online, container, false);
         materialToolbarOn = view.findViewById(R.id.materialToolbarOn)
-        materialToolbarOn.setTitle("Online")
+        materialToolbarOn.title = "Online"
         b3 = view.findViewById(R.id.ob3)
         b4 = view.findViewById(R.id.ob4)
         b2 = view.findViewById(R.id.ob2)

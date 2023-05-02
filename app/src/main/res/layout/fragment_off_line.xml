@@ -132,81 +132,72 @@
                             android:id="@+id/b1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@color/primary"
                             android:padding="30dp"
-                            android:src="@drawable/x_24"
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <ImageButton
                             android:id="@+id/b2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@color/primary"
                             android:padding="30dp"
-                            android:src="@drawable/x_24"
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <ImageButton
                             android:id="@+id/b3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@color/primary"
                             android:padding="30dp"
-                            android:src="@drawable/x_24"
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <ImageButton
                             android:id="@+id/b4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@color/primary"
                             android:padding="30dp"
-                            android:src="@drawable/x_24"
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <ImageButton
                             android:id="@+id/b5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@color/primary"
                             android:padding="30dp"
-                            android:src="@drawable/x_24"
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <ImageButton
                             android:id="@+id/b6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@color/primary"
                             android:padding="30dp"
-                            android:src="@drawable/x_24"
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <ImageButton
                             android:id="@+id/b7"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@color/primary"
                             android:padding="30dp"
-                            android:src="@drawable/x_24"
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <ImageButton
                             android:id="@+id/b8"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@color/primary"
                             android:padding="30dp"
-                            android:src="@drawable/x_24"
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <ImageButton
                             android:id="@+id/b9"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@color/primary"
                             android:padding="30dp"
-                            android:src="@drawable/x_24"
                             tools:ignore="SpeakableTextPresentCheck" />
 
                     </GridLayout>
