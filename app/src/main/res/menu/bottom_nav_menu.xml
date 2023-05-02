@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/offline"
+        android:icon="@drawable/baseline_videogame_asset_off_24"
+        android:title="OffLine" />
+    <item
+        android:id="@+id/online"
+        android:icon="@drawable/baseline_videogame_asset_24"
+        android:title="Online" />
+
+</menu>
