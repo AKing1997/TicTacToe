@@ -32,9 +32,9 @@ class OffLine(ip: String, port: String) : Fragment() {
     private lateinit var resetBtn: Button
     private lateinit var homeBtn: Button
     companion object {
-        private lateinit var context: Context?
-        fun conectedMsg(context: Context) {
-            Toast.makeText(context, "Conectado", Toast.LENGTH_SHORT).show()
+        private lateinit var toast: Unit
+        fun conectedMsg() {
+            toast
         }
 
         private lateinit var ganador: ConstraintLayout
@@ -103,7 +103,7 @@ class OffLine(ip: String, port: String) : Fragment() {
         ganador = view.findViewById(R.id.sccoreConteiner)
         resetBtn = view.findViewById(R.id.resetBtn)
         homeBtn = view.findViewById(R.id.homeBtn)
-        context = view.context
+        toast = Toast.makeText(view.context, "Connected", Toast.LENGTH_SHORT).show()
         resetBtn.setOnClickListener {
             resetGame()
         }
@@ -202,7 +202,7 @@ class OffLine(ip: String, port: String) : Fragment() {
          */
         override fun onPreExecute() {
             super.onPreExecute()
-            conectedMsg(this@Ma)
+            conectedMsg()
         }
 
         /**
