@@ -246,7 +246,6 @@ class OffLine(ip: String, port: String) : Fragment() {
          * Oculta ventana emergente y muestra resultado en pantalla
          */
         override fun onPostExecute(value: String?) {
-            progressDialog!!.dismiss()
             player = true
             val array = value?.split(",")?.toTypedArray()
             if(array?.let { hayGanador(it) }!!){
