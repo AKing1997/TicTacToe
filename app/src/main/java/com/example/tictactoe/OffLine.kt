@@ -1,7 +1,6 @@
 package com.example.tictactoe
 
 import android.app.ProgressDialog
-import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
@@ -13,6 +12,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -26,18 +26,25 @@ import java.net.UnknownHostException
 import java.nio.charset.Charset
 
 
-class OffLine(ip: String, port: String) : Fragment() {
+class OffLine(ip: String, port: String) : Fragment(),
+    ServerConnectionTask.ServerConnectionListener {
+
     private val ip = ip
     private val port = port
     private lateinit var resetBtn: Button
     private lateinit var homeBtn: Button
+
     companion object {
+        private var tree = Array(9) { "-1" }
         private lateinit var toast: Unit
         fun conectedMsg() {
             toast
         }
 
         private lateinit var ganador: ConstraintLayout
+        private lateinit var msgGanador: TextView
+        private lateinit var ganadorEs: TextView
+
         /**
          * Puerto
          */
@@ -48,6 +55,16 @@ class OffLine(ip: String, port: String) : Fragment() {
          */
         private lateinit var ADDRESS: String
         private var player: Boolean = true;
+        fun esGanador(p: String): Boolean {
+            return (tree[0] == p && tree[1] == p && tree[2] == p ||
+                    tree[3] == p && tree[4] == p && tree[5] == p ||
+                    tree[6] == p && tree[7] == p && tree[8] == p ||
+                    tree[0] == p && tree[4] == p && tree[8] == p ||
+                    tree[6] == p && tree[4] == p && tree[2] == p ||
+                    tree[0] == p && tree[3] == p && tree[6] == p ||
+                    tree[1] == p && tree[4] == p && tree[7] == p ||
+                    tree[2] == p && tree[5] == p && tree[8] == p)
+        }
 
         fun hayGanador(tablero: Array<String>): Boolean {
             // Verificar filas
@@ -75,10 +92,8 @@ class OffLine(ip: String, port: String) : Fragment() {
         }
 
 
-
     }
 
-    private val tree = Array(9) { "-1" }
 
     private val btn: ArrayList<ImageButton> = ArrayList()
     private lateinit var x: RadioButton;
@@ -101,6 +116,8 @@ class OffLine(ip: String, port: String) : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_off_line, container, false);
         materialToolbarOff = view.findViewById(R.id.materialToolbarOff)
         ganador = view.findViewById(R.id.sccoreConteiner)
+        msgGanador = view.findViewById(R.id.msgOff)
+        ganadorEs = view.findViewById(R.id.ganador)
         resetBtn = view.findViewById(R.id.resetBtn)
         homeBtn = view.findViewById(R.id.homeBtn)
         toast = Toast.makeText(view.context, "Connected", Toast.LENGTH_SHORT).show()
@@ -122,7 +139,6 @@ class OffLine(ip: String, port: String) : Fragment() {
         }
         x = view.findViewById(R.id.x)
         o = view.findViewById(R.id.o)
-
 
 
         /*playGBtn.setOnCheckedChangeListener { radioGroup, i ->
@@ -155,12 +171,11 @@ class OffLine(ip: String, port: String) : Fragment() {
     fun setOnlistner() {
         for ((index, button) in btn.withIndex()) {
             button.setOnClickListener {
-                if (player) {
+                if (player && tree[index] == "-1") {
                     player = false
                     cambiarImagen(button, if (selected) O else X, blue)
-                    tree[index] = "1"
-                    val myATaskYW = MyATaskCliente()
-                    myATaskYW.execute(treeToString())
+                    tree[index] = if (selected) "1" else "0"
+                    treeToString()?.let { it1 -> connectToServer(it1) };
                 }
             }
         }
@@ -175,82 +190,46 @@ class OffLine(ip: String, port: String) : Fragment() {
     }
 
     fun cambiarImagen(img: ImageButton, image: Int, backG: Int) {
-            img.setBackgroundResource(backG)
-            img.setImageResource(image)
+        img.setBackgroundResource(backG)
+        img.setImageResource(image)
     }
 
-    fun resetGame(){
+    fun resetGame() {
         tree.fill("-1")
-        for (b in btn){
+        for (b in btn) {
             cambiarImagen(b, transp, R.drawable.border)
         }
+        ganador.visibility = View.GONE
     }
-    fun setPosicion(x: Int,selectedOp: String) {
+
+    fun setPosicion(x: Int, selectedOp: String) {
         if (tree[x] != "-1") return;
         tree[x] = selectedOp
     }
 
-    internal class MyATaskCliente :
-        AsyncTask<String?, Void?, String?>() {
-        /**
-         * Ventana que bloqueara la pantalla del movil hasta recibir respuesta del servidor
-         */
-        var progressDialog: ProgressDialog? = null
+    private fun connectToServer(request: String) {
+        val serverConnectionTask = ServerConnectionTask(ADDRESS, SERVERPORT, request, this)
+        serverConnectionTask.execute()
+    }
 
-        /**
-         * muestra una ventana emergente
-         */
-        override fun onPreExecute() {
-            super.onPreExecute()
-            conectedMsg()
+    override fun onServerResponse(response: String) {
+        player = true
+        Log.i("afasa", response)
+        tree = response.split(",").toTypedArray()
+        if (esGanador("1")) {
+            ganador.setBackgroundResource(
+                if(selected) blue else red
+
+            )
+                        ganadorEs.text = "X"
+            ganador.visibility = View.VISIBLE
         }
-
-        /**
-         * Se conecta al servidor y trata resultado
-         */
-        override fun doInBackground(vararg values: String?): String? {
-            return try {
-                //Se conecta al servidor
-                val serverAddr = InetAddress.getByName(ADDRESS)
-                Log.i("I/TCP Client", "Connecting...")
-                val socket = Socket(serverAddr, SERVERPORT)
-                Log.i("I/TCP Client", "Connected to server")
-
-                //envia peticion de cliente
-                Log.i("I/TCP Client", "Send data to server")
-                val output = PrintStream(socket.getOutputStream())
-                val request = values[0]
-                output.println(request)
-
-                //recibe respuesta del servidor y formatea a String
-                Log.i("I/TCP Client", "Received data to server")
-                val stream = socket.getInputStream()
-                val lenBytes = ByteArray(256)
-                stream.read(lenBytes, 0, 256)
-                val received = String(lenBytes, Charset.forName("UTF-8")).trim { it <= ' ' }
-                Log.i("I/TCP Client", "Received $received")
-                Log.i("I/TCP Client", "")
-                //cierra conexion
-                socket.close()
-                received
-            } catch (ex: UnknownHostException) {
-                Log.e("E/TCP Client", "" + ex.message)
-                ex.message
-            } catch (ex: IOException) {
-                Log.e("E/TCP Client", "" + ex.message)
-                ex.message
-            }
-        }
-
-        /**
-         * Oculta ventana emergente y muestra resultado en pantalla
-         */
-        override fun onPostExecute(value: String?) {
-            player = true
-            val array = value?.split(",")?.toTypedArray()
-            if(array?.let { hayGanador(it) }!!){
-                ganador.visibility = View.VISIBLE
-            }
+        if(esGanador("0")){
+            ganador.setBackgroundResource(
+                if(selected) blue else red
+            )
+            ganadorEs.text = "O"
+            ganador.visibility = View.VISIBLE
         }
     }
 }
