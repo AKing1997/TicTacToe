@@ -146,6 +146,7 @@
                             android:background="@drawable/border"
                             android:padding="30dp"
                             android:src="@drawable/x_24"
+                            android:textAlignment="center"
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <ImageButton
@@ -235,6 +236,7 @@
             android:layout_marginBottom="200dp"
             android:fontFamily="cursive"
             android:text="Felicidades ;-)"
+            android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="48sp"
             android:textStyle="bold"

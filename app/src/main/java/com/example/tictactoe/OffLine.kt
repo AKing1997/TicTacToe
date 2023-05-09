@@ -147,7 +147,7 @@ class OffLine(ip: String, port: String) : Fragment(),
                 if (player && tree[index] == "-1") {
                     player = false
                     cambiarImagen(button, if (selected) O else X, blue)
-                    tree[index] = if (selected) "1" else "0"
+                    tree[index] = if (!selected) "1" else "0"
                     treeToString()?.let { it1 -> connectToServer(it1) };
                 }
             }
@@ -159,7 +159,7 @@ class OffLine(ip: String, port: String) : Fragment(),
         for (i in tree.indices) {
             temp += if (i < tree.size - 1) tree[i] + "," else tree[i]
         }
-        return temp+";"+if (!selected) "1" else "0"
+        return temp+";"+if (selected) "1" else "0"
     }
 
     fun cambiarImagen(img: ImageButton, image: Int, backG: Int) {
@@ -181,12 +181,21 @@ class OffLine(ip: String, port: String) : Fragment(),
     }
 
     fun setMachiPlayer(){
-        val how = if (!selected) "1" else "0"
+        val how = if (selected) "1" else "0"
         for ((index, button) in btn.withIndex()) {
                 if (tree[index] == how) {
                     cambiarImagen(button, if (!selected) O else X, red)
                 }
         }
+    }
+
+    fun visibleGanador(how: String){
+        if(!(selected && how == "0" || !selected && how == "1")){
+            ganador.setBackgroundResource(red)
+        }
+        ganadorEs.text = if(how == "0") "O" else "X"
+        msgGanador.text = if(selected && how == "0") "Felicidades ;-)" else "Para la proxima partida!"
+        ganador.visibility = View.VISIBLE
     }
 
     private fun connectToServer(request: String) {
@@ -200,19 +209,10 @@ class OffLine(ip: String, port: String) : Fragment(),
         tree = response.split(",").toTypedArray()
         setMachiPlayer()
         if (esGanador("1")) {
-            ganador.setBackgroundResource(
-                if(selected) blue else red
-
-            )
-            ganadorEs.text = "X"
-            ganador.visibility = View.VISIBLE
+            visibleGanador("1")
         }
         if(esGanador("0")){
-            ganador.setBackgroundResource(
-                if(selected) blue else red
-            )
-            ganadorEs.text = "O"
-            ganador.visibility = View.VISIBLE
+            visibleGanador("0")
         }
     }
 }
