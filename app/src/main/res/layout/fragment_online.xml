@@ -133,7 +133,7 @@
                             android:id="@+id/ob1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@drawable/border"
                             android:padding="30dp"
                             android:src="@drawable/transp"
                             tools:ignore="SpeakableTextPresentCheck" />
@@ -142,7 +142,7 @@
                             android:id="@+id/ob2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@drawable/border"
                             android:padding="30dp"
                             android:src="@drawable/transp"
                             tools:ignore="SpeakableTextPresentCheck" />
@@ -151,7 +151,7 @@
                             android:id="@+id/ob3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@drawable/border"
                             android:padding="30dp"
                             android:src="@drawable/transp"
                             tools:ignore="SpeakableTextPresentCheck" />
@@ -160,7 +160,7 @@
                             android:id="@+id/ob4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@drawable/border"
                             android:padding="30dp"
                             android:src="@drawable/transp"
                             tools:ignore="SpeakableTextPresentCheck" />
@@ -169,7 +169,7 @@
                             android:id="@+id/ob5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@drawable/border"
                             android:padding="30dp"
                             android:src="@drawable/transp"
                             tools:ignore="SpeakableTextPresentCheck" />
@@ -178,7 +178,7 @@
                             android:id="@+id/ob6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@drawable/border"
                             android:padding="30dp"
                             android:src="@drawable/transp"
                             tools:ignore="SpeakableTextPresentCheck" />
@@ -187,7 +187,7 @@
                             android:id="@+id/ob7"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@drawable/border"
                             android:padding="30dp"
                             android:src="@drawable/transp"
                             tools:ignore="SpeakableTextPresentCheck" />
@@ -196,7 +196,7 @@
                             android:id="@+id/ob8"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@drawable/border"
                             android:padding="30dp"
                             android:src="@drawable/transp"
                             tools:ignore="SpeakableTextPresentCheck" />
@@ -205,7 +205,7 @@
                             android:id="@+id/ob9"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_background"
+                            android:background="@drawable/border"
                             android:padding="30dp"
                             android:src="@drawable/transp"
                             tools:ignore="SpeakableTextPresentCheck" />
@@ -218,4 +218,95 @@
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sccoreConteinerOn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#4CAF50"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/msgOn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="200dp"
+            android:fontFamily="cursive"
+            android:text="Felicidades ;-)"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/resetBtnOn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3On"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="cursive"
+            android:text="El Ganador es"
+            android:textColor="@color/white"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/ganadorOn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.486"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/ganadorOn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="cursive"
+            android:text="X"
+            android:textColor="@color/white"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/msgOn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/resetBtnOn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:drawableLeft="@drawable/restart_alt_24"
+            android:drawableTint="#FFFFFF"
+            android:text="Reniciar el juego"
+            app:layout_constraintBottom_toTopOf="@+id/homeBtnOn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/homeBtnOn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/home_24"
+            android:drawableTint="@color/primary"
+            android:text="Ir al Inicio"
+            android:textColor="@color/primary"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -191,7 +191,9 @@ class OffLine(ip: String, port: String) : Fragment(),
 
     fun visibleGanador(how: String){
         if(!(selected && how == "0" || !selected && how == "1")){
-            ganador.setBackgroundResource(red)
+            ganador.setBackgroundColor(getResources().getColor(R.color.red))
+        }else{
+            ganador.setBackgroundColor(getResources().getColor(R.color.green))
         }
         ganadorEs.text = if(how == "0") "O" else "X"
         msgGanador.text = if(selected && how == "0") "Felicidades ;-)" else "Para la proxima partida!"
