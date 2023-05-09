@@ -159,7 +159,7 @@ class OffLine(ip: String, port: String) : Fragment(),
         for (i in tree.indices) {
             temp += if (i < tree.size - 1) tree[i] + "," else tree[i]
         }
-        return temp+if (selected) "1" else "0"
+        return temp+";"+if (!selected) "1" else "0"
     }
 
     fun cambiarImagen(img: ImageButton, image: Int, backG: Int) {
@@ -181,11 +181,10 @@ class OffLine(ip: String, port: String) : Fragment(),
     }
 
     fun setMachiPlayer(){
-        val how = if (selected) "1" else "0"
+        val how = if (!selected) "1" else "0"
         for ((index, button) in btn.withIndex()) {
                 if (tree[index] == how) {
-                    player = false
-                    cambiarImagen(button, if (selected) O else X, red)
+                    cambiarImagen(button, if (!selected) O else X, red)
                 }
         }
     }
