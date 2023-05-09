@@ -65,33 +65,6 @@ class OffLine(ip: String, port: String) : Fragment(),
                     tree[1] == p && tree[4] == p && tree[7] == p ||
                     tree[2] == p && tree[5] == p && tree[8] == p)
         }
-
-        fun hayGanador(tablero: Array<String>): Boolean {
-            // Verificar filas
-            for (fila in 0 until 3) {
-                val indiceInicial = fila * 3
-                if (tablero[indiceInicial] != "-1" && tablero[indiceInicial] == tablero[indiceInicial + 1] && tablero[indiceInicial] == tablero[indiceInicial + 2]) {
-                    return true
-                }
-            }
-            // Verificar columnas
-            for (columna in 0 until 3) {
-                if (tablero[columna] != "-1" && tablero[columna] == tablero[columna + 3] && tablero[columna] == tablero[columna + 6]) {
-                    return true
-                }
-            }
-            // Verificar diagonales
-            if (tablero[0] != "-1" && tablero[0] == tablero[4] && tablero[0] == tablero[8]) {
-                return true
-            }
-            if (tablero[2] != "-1" && tablero[2] == tablero[4] && tablero[2] == tablero[6]) {
-                return true
-            }
-            // No hay ganador
-            return false
-        }
-
-
     }
 
 
@@ -186,7 +159,7 @@ class OffLine(ip: String, port: String) : Fragment(),
         for (i in tree.indices) {
             temp += if (i < tree.size - 1) tree[i] + "," else tree[i]
         }
-        return temp
+        return temp+if (selected) "1" else "0"
     }
 
     fun cambiarImagen(img: ImageButton, image: Int, backG: Int) {
@@ -207,6 +180,16 @@ class OffLine(ip: String, port: String) : Fragment(),
         tree[x] = selectedOp
     }
 
+    fun setMachiPlayer(){
+        val how = if (selected) "1" else "0"
+        for ((index, button) in btn.withIndex()) {
+                if (tree[index] == how) {
+                    player = false
+                    cambiarImagen(button, if (selected) O else X, red)
+                }
+        }
+    }
+
     private fun connectToServer(request: String) {
         val serverConnectionTask = ServerConnectionTask(ADDRESS, SERVERPORT, request, this)
         serverConnectionTask.execute()
@@ -216,12 +199,13 @@ class OffLine(ip: String, port: String) : Fragment(),
         player = true
         Log.i("afasa", response)
         tree = response.split(",").toTypedArray()
+        setMachiPlayer()
         if (esGanador("1")) {
             ganador.setBackgroundResource(
                 if(selected) blue else red
 
             )
-                        ganadorEs.text = "X"
+            ganadorEs.text = "X"
             ganador.visibility = View.VISIBLE
         }
         if(esGanador("0")){
