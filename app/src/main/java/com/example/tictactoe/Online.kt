@@ -126,12 +126,7 @@ class Online(ip: String, port: String) : Fragment() {
                 Log.i("ASFAFSGAS", response)
                 tree = response.split(",").toTypedArray()
                 setMachiPlayer()
-                if (esGanador("1")) {
-                    visibleGanador("1")
-                }
-                if (esGanador("0")) {
-                    visibleGanador("0")
-                }
+                gano()
             },
             onConnectionError = {
                 // Ha ocurrido un error de conexión con el servidor
@@ -143,6 +138,11 @@ class Online(ip: String, port: String) : Fragment() {
         return view;
     }
 
+    fun gano(){
+        if (esGanador(if (selected) "1" else "0")) {
+            visibleGanador(if (selected) "1" else "0")
+        }
+    }
 
     fun disableRBtn() {
         x.isClickable = false
@@ -156,7 +156,11 @@ class Online(ip: String, port: String) : Fragment() {
                     player = false
                     cambiarImagen(button, if (selected) O else X, blue)
                     tree[index] = if (!selected) "1" else "0"
+
                     treeToString()?.let { it1 -> clientThread.sendMessage(it1) };
+                    if (esGanador(if (!selected) "1" else "0")) {
+                        visibleGanador(if (!selected) "1" else "0")
+                    }
                 }
             }
         }

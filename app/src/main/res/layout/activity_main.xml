@@ -73,6 +73,7 @@
             android:ems="10"
             android:hint="IP"
             android:inputType="text"
+            android:text="10.0.2.2"
             android:textColor="@color/primary"
             android:textColorHighlight="@color/primary"
             android:textColorHint="@color/primary"
@@ -86,6 +87,7 @@
             android:ems="10"
             android:hint="PORT"
             android:inputType="text"
+            android:text="5000"
             android:textColor="@color/primary"
             android:textColorHighlight="@color/primary"
             android:textColorHint="@color/primary" />
